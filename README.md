@@ -1,10 +1,10 @@
-#  DnD Hub — Ecossistema de Microsserviços com Kubernetes & GitOps
+# DnD Hub — Ecossistema de Microsserviços com Kubernetes e GitOps
 
 Plataforma full-stack para criação e gerenciamento de fichas de personagens de **Dungeons & Dragons (5e / 5.5e)**, construída com arquitetura de microsserviços containerizados, orquestração em **Kubernetes** e entrega contínua baseada em **GitOps (ArgoCD)**.
 
 ---
 
-##  Arquitetura do Projeto
+## Arquitetura do Projeto
 
 O ecossistema é dividido em três serviços independentes que se comunicam dentro do cluster Kubernetes:
 
@@ -19,18 +19,25 @@ flowchart LR
 
 | Serviço | Stack | Porta | Responsabilidade |
 | :--- | :--- | :---: | :--- |
-| **`frontend`** | React 19, Vite, Bootstrap 5, Nginx | `3000` (LB) $\rightarrow$ `80` | Interface SPA e Reverse Proxy para as APIs internas |
+| **`frontend`** | React 19, Vite, Bootstrap 5, Nginx | `3000` (LB) -> `80` | Interface SPA e Reverse Proxy para as APIs internas |
 | **`dndmanager`** | Java 25, Spring Boot 4, Security (JWT), Flyway | `8080` | Autenticação, regras de domínio, persistência de usuários e fichas |
 | **`APIdados`** | Java 25, Spring Boot 4 | `8081` | Motor de rolagem de atributos (`4d6 drop lowest`) |
 
 ---
 
-## 🛠️ Stack & Práticas Aplicadas
+## Material de Apoio e Demonstração
+
+- **Apresentação em Slides (HTML):** [`Kubernetes na prática.html`](./Kubernetes%20na%20pr%C3%A1tica.html) — Simulação interativa de slides usada em aula explicando a evolução do projeto desde a arquitetura inicial até a implementação no Kubernetes. Abra o arquivo diretamente no navegador para visualizar.
+- **Demonstração em Vídeo (YouTube):** [RollingUpdate e Rollback na prática](https://youtu.be/dflSJ6n8yJg) — Vídeo demonstrando o funcionamento de atualização contínua (`RollingUpdate`) e reversão de versão (`Rollback`) no cluster Kubernetes.
+
+---
+
+## Stack e Práticas Aplicadas
 
 - **Backend:** Java 25, Spring Boot 4.1, Spring Security + JWT (Stateless), Spring Data JPA, Flyway Migrations, Bean Validation, OpenAPI/Swagger.
 - **Frontend:** React 19, Vite, Bootstrap 5, CSS customizado, Axios com interceptores JWT.
 - **Containers:** Dockerfiles com *Multi-Stage Build* e execução com usuário *non-root*.
-- **Orquestração & Rede:** Kubernetes (`Deployment` com 2 réplicas por serviço, `LoadBalancer`, `Liveness` / `Readiness Probes`, limites de memória JVM com `MaxRAMPercentage`) e Nginx como Reverse Proxy.
+- **Orquestração e Rede:** Kubernetes (`Deployment` com 2 réplicas por serviço, `LoadBalancer`, `Liveness` / `Readiness Probes`, limites de memória JVM com `MaxRAMPercentage`) e Nginx como Reverse Proxy.
 - **GitOps:** Sincronização declarativa do cluster via **ArgoCD**.
 
 ---
@@ -48,8 +55,8 @@ flowchart LR
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
-cd SEU-REPOSITORIO
+git clone https://github.com/PseravaT/dnd-hub-k8s-gitops.git
+cd dnd-hub-k8s-gitops
 ```
 
 ---
@@ -94,7 +101,7 @@ Com todos os pods em `Running`, acesse no navegador:
 
 ### 3. Alternativa: Subir com Docker Compose
 
-1. Copie os arquivos de exemplo e preencha suas variáveis locais:
+1. Copie o arquivo de exemplo e preencha suas variáveis locais:
    ```bash
    cp .env.example .env
    ```
@@ -106,23 +113,23 @@ Com todos os pods em `Running`, acesse no navegador:
 
 ---
 
-##  Estrutura do Repositório
+## Estrutura do Repositório
 
 ```text
-├── APIdados/          # Microsserviço de rolagens (Dockerfile + manifestos K8s)
-├── dndmanager/        # Core API Spring Boot + Flyway (Dockerfile + manifestos K8s)
-├── frontend/          # SPA React + Nginx Reverse Proxy (Dockerfile + manifestos K8s)
-├── compose.yaml       # Orquestração local opcional via Docker Compose
-├── .env.example       # Modelo de variáveis de ambiente
-└── .gitignore         # Proteção contra vazamento de segredos e artefatos locais
+├── APIdados/                      # Microsserviço de rolagens (Dockerfile + manifestos K8s)
+├── dndmanager/                    # Core API Spring Boot + Flyway (Dockerfile + manifestos K8s)
+├── frontend/                      # SPA React + Nginx Reverse Proxy (Dockerfile + manifestos K8s)
+├── Kubernetes na prática.html     # Apresentação em slides sobre o projeto e Kubernetes
+├── compose.yaml                   # Orquestração local opcional via Docker Compose
+├── .env.example                   # Modelo de variáveis de ambiente
+└── .gitignore                     # Proteção contra vazamento de segredos e artefatos locais
 ```
 
 ---
 
-##  Roadmap / Próximos Passos
+## Roadmap / Próximos Passos
 
 - [x] Containerização *multi-stage* dos 3 serviços
 - [x] Orquestração em Kubernetes com réplicas, *probes* e controle de recursos
-- [ ] Integração com ArgoCD para fluxo GitOps
+- [x] Integração com ArgoCD para fluxo GitOps
 - [ ] **Deploy Canary** *(implementação futura planejada para entrega progressiva de novas versões)*
-
