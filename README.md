@@ -1,10 +1,10 @@
-# 🐉 DnD Hub — Ecossistema de Microsserviços com Kubernetes & GitOps
+#  DnD Hub — Ecossistema de Microsserviços com Kubernetes & GitOps
 
 Plataforma full-stack para criação e gerenciamento de fichas de personagens de **Dungeons & Dragons (5e / 5.5e)**, construída com arquitetura de microsserviços containerizados, orquestração em **Kubernetes** e entrega contínua baseada em **GitOps (ArgoCD)**.
 
 ---
 
-## 🏗️ Arquitetura do Projeto
+##  Arquitetura do Projeto
 
 O ecossistema é dividido em três serviços independentes que se comunicam dentro do cluster Kubernetes:
 
@@ -35,7 +35,7 @@ flowchart LR
 
 ---
 
-## 🚀 Como Baixar e Rodar
+## Como Baixar e Rodar
 
 ### Pré-requisitos
 - [Git](https://git-scm.com/)
@@ -106,7 +106,7 @@ Com todos os pods em `Running`, acesse no navegador:
 
 ---
 
-## 📁 Estrutura do Repositório
+##  Estrutura do Repositório
 
 ```text
 ├── APIdados/          # Microsserviço de rolagens (Dockerfile + manifestos K8s)
@@ -119,10 +119,10 @@ Com todos os pods em `Running`, acesse no navegador:
 
 ---
 
-## 🗺️ Roadmap / Próximos Passos
+##  Roadmap / Próximos Passos
 
 - [x] Containerização *multi-stage* dos 3 serviços
 - [x] Orquestração em Kubernetes com réplicas, *probes* e controle de recursos
-- [x] Integração com ArgoCD para fluxo GitOps
+- [ ] Integração com ArgoCD para fluxo GitOps
 - [ ] **Deploy Canary** *(implementação futura planejada para entrega progressiva de novas versões)*
 
