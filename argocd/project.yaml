@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: dnd-hub
+  namespace: argocd
+spec:
+  description: Projeto GitOps do ecossistema DnD Hub
+  sourceRepos:
+    - https://github.com/PseravaT/dnd-hub-k8s-gitops.git
+  destinations:
+    - namespace: default
+      server: https://kubernetes.default.svc
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
