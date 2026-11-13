@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import dndService from '../api/dndService';
+import { animateDiceNodes } from '../lib/motion';
 
 const RACAS_DND = [
   'Humano',
@@ -138,6 +139,7 @@ export const CreateCharacterForm = ({ onSuccess, onCancel }) => {
   // Limite de 3 rerolagens conforme especificado
   const [rerollsLeft, setRerollsLeft] = useState(3);
   const [selectedPoolId, setSelectedPoolId] = useState(null);
+  const dicePoolRefs = useRef([]);
 
   // Perícias e Salvaguardas treinadas (proficiências)
   const [periciasSelecionadas, setPericiasSelecionadas] = useState(['Percepção', 'Sobrevivência', 'Furtividade']);
@@ -300,6 +302,9 @@ export const CreateCharacterForm = ({ onSuccess, onCancel }) => {
         setInfoMessage(
           `Novos valores rolados via APIdados! Rerolagens restantes: ${restantes}. Clique em um número do banco e selecione o atributo correspondente.`
         );
+        requestAnimationFrame(() => {
+          animateDiceNodes(dicePoolRefs.current.filter(Boolean));
+        });
       }
     } catch (err) {
       setErrorMessage('Não foi possível obter rolagens automáticas da APIdados.');
@@ -324,6 +329,9 @@ export const CreateCharacterForm = ({ onSuccess, onCancel }) => {
     setSelectedPoolId(null);
     setErrorMessage('');
     setInfoMessage('Array Padrão (15, 14, 13, 12, 10, 8) pronto! Clique nos valores para vinculá-los aos atributos.');
+    requestAnimationFrame(() => {
+      animateDiceNodes(dicePoolRefs.current.filter(Boolean));
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -889,7 +897,7 @@ export const CreateCharacterForm = ({ onSuccess, onCancel }) => {
               </div>
 
               <div className="d-flex flex-wrap gap-2">
-                {pool.map((item) => {
+                {pool.map((item, idx) => {
                   const assignedKey = Object.keys(allocations).find((k) => allocations[k] === item.id);
                   const assignedAttr = ATRIBUTOS_CONFIG.find((a) => a.key === assignedKey);
                   const isSelected = selectedPoolId === item.id;
@@ -916,6 +924,9 @@ export const CreateCharacterForm = ({ onSuccess, onCancel }) => {
                     <button
                       type="button"
                       key={item.id}
+                      ref={(el) => {
+                        dicePoolRefs.current[idx] = el;
+                      }}
                       onClick={() => setSelectedPoolId(isSelected ? null : item.id)}
                       className={buttonClass}
                       style={{

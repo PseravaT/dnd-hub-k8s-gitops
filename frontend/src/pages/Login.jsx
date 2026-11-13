@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import RevealGroup from '../components/ui/Reveal';
 
 export const Login = ({ onNavigateToRegister, onLoginSuccess }) => {
   const { login, loading } = useAuth();
@@ -46,10 +47,11 @@ export const Login = ({ onNavigateToRegister, onLoginSuccess }) => {
   };
 
   return (
-    <div className="container py-5 fade-in">
-      <div className="row justify-content-center">
-        <div className="col-12 col-sm-10 col-md-8 col-lg-5">
-          <div className="card rpg-card">
+    <div className="container py-5">
+      <RevealGroup>
+        <div className="row justify-content-center">
+          <div data-reveal className="col-12 col-sm-10 col-md-8 col-lg-5">
+            <div className="card rpg-card">
             <div className="card-header rpg-card-header text-center">
               <div className="mb-2">
                 <i className="bi bi-shield-lock-fill text-gold fs-1"></i>
@@ -171,10 +173,18 @@ export const Login = ({ onNavigateToRegister, onLoginSuccess }) => {
                   <i className="bi bi-feather me-1"></i> Criar Nova Conta
                 </button>
               </div>
+
+              <div className="text-center mt-4 pt-3 border-top border-secondary border-opacity-25">
+                <span className="rpg-service-badge">
+                  <i className="bi bi-shield-lock text-gold" aria-hidden="true"></i>
+                  Autenticação JWT Stateless • Spring Security :8080
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      </RevealGroup>
     </div>
   );
 };

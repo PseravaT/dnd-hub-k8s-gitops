@@ -1,70 +1,52 @@
-:root {
-  --dnd-bg-main: #0c0f17;
-  --dnd-bg-surface: #141923;
-  --dnd-bg-card: rgba(20, 25, 36, 0.85);
-  --dnd-bg-input: #1a202c;
-  --dnd-gold: #d4af37;
-  --dnd-gold-hover: #f3ca40;
-  --dnd-gold-muted: rgba(212, 175, 55, 0.25);
-  --dnd-crimson: #9e2a2b;
-  --dnd-crimson-hover: #bd3234;
-  --dnd-arcane: #48bfe3;
-  --dnd-text-main: #f8fafc;
-  --dnd-text-muted: #cbd5e1;
-  --dnd-text-secondary: #e2e8f0;
-  --dnd-border-gold: rgba(212, 175, 55, 0.35);
-  --dnd-glow-gold: 0 0 20px rgba(212, 175, 55, 0.2);
-  --dnd-font-title: 'Cinzel', serif;
-  --dnd-font-decor: 'Cinzel Decorative', cursive;
-  --dnd-font-body: 'Inter', sans-serif;
-
-  /* Bootstrap Variable Overrides para garantir alto contraste no tema escuro */
-  --bs-body-color: #f8fafc;
-  --bs-body-color-rgb: 248, 250, 252;
-  --bs-secondary-color: #cbd5e1;
-  --bs-secondary-color-rgb: 203, 213, 225;
-  --bs-tertiary-color: #94a3b8;
-  --bs-tertiary-color-rgb: 148, 163, 184;
-}
+/* ==========================================================================
+   DnD Hub Theme (Tokens semânticos em src/styles/tokens.css)
+   ========================================================================== */
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--dnd-bg-main);
-  background-image: 
-    radial-gradient(circle at 15% 20%, rgba(158, 42, 43, 0.15) 0%, transparent 40%),
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(158, 42, 43, 0.14) 0%, transparent 40%),
     radial-gradient(circle at 85% 80%, rgba(72, 191, 227, 0.1) 0%, transparent 45%),
     radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
   background-attachment: fixed;
-  color: var(--dnd-text-main);
+  color: var(--text);
   font-family: var(--dnd-font-body);
+  font-size: var(--text-base);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Alto contraste para textos secundários e muted em fundos escuros */
+/* Foco acessível visível para teclado */
+:focus-visible {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+/* Alto contraste para textos secundários e muted */
 .text-muted,
 .text-secondary,
 small.text-muted,
 p.text-muted,
 span.text-muted,
 div.text-muted {
-  color: #cbd5e1 !important;
+  color: var(--muted) !important;
 }
 
 .text-muted-bright {
-  color: #e2e8f0 !important;
+  color: var(--text-secondary) !important;
 }
 
 /* Badges e tags com fundo escuro */
 .badge.bg-dark {
-  background-color: #1a2233 !important;
-  color: #f1f5f9 !important;
-  border: 1px solid rgba(212, 175, 55, 0.45) !important;
+  background-color: var(--surface-elevated) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border-strong) !important;
 }
 
-/* Caixas de estatísticas e atributos nos cards */
 .bg-dark {
-  background-color: #151b27 !important;
+  background-color: var(--surface) !important;
 }
 
 /* Tipografia RPG */
@@ -79,37 +61,44 @@ div.text-muted {
 }
 
 .text-gold {
-  color: var(--dnd-gold) !important;
+  color: var(--primary) !important;
 }
 
 .text-arcane {
-  color: var(--dnd-arcane) !important;
+  color: var(--accent) !important;
 }
 
 .text-crimson {
-  color: var(--dnd-crimson) !important;
+  color: var(--crimson) !important;
 }
 
 /* Cards Imersivos RPG */
 .rpg-card {
-  background: var(--dnd-bg-card);
+  background: var(--surface-glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--dnd-border-gold);
-  border-radius: 12px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), var(--dnd-glow-gold);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
   overflow: hidden;
 }
 
 .rpg-card:hover {
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.3);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-strong);
+}
+
+.rpg-card-interactive:hover {
+  transform: translateY(-4px);
 }
 
 .rpg-card-header {
-  background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, rgba(20, 25, 36, 0.8) 100%);
-  border-bottom: 1px solid var(--dnd-border-gold);
-  padding: 1.5rem 1.75rem 1rem 1.75rem;
+  background: linear-gradient(180deg, var(--primary-muted) 0%, var(--surface-glass) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 1.5rem 1rem 1.5rem;
   position: relative;
 }
 
@@ -120,14 +109,14 @@ div.text-muted {
   left: 20%;
   right: 20%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--dnd-gold), transparent);
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
 }
 
-/* Customização dos componentes de Formulário Bootstrap */
+/* Formulários */
 .rpg-form .form-label {
-  color: var(--dnd-gold);
+  color: var(--primary);
   font-family: var(--dnd-font-title);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   font-weight: 600;
   margin-bottom: 0.4rem;
   display: flex;
@@ -135,35 +124,38 @@ div.text-muted {
   gap: 0.4rem;
 }
 
-.rpg-form .form-control {
-  background-color: var(--dnd-bg-input);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: #f7fafc;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  font-size: 0.95rem;
-  transition: all 0.2s ease-in-out;
+.rpg-form .form-control,
+.rpg-form .form-select {
+  background-color: var(--surface-input);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.95rem;
+  font-size: var(--text-base);
+  min-height: 44px;
+  transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
 }
 
-.rpg-form .form-control:focus {
-  background-color: #202736;
-  border-color: var(--dnd-gold);
-  color: #ffffff;
-  box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+.rpg-form .form-control:focus,
+.rpg-form .form-select:focus {
+  background-color: var(--surface-elevated);
+  border-color: var(--primary);
+  color: var(--text);
+  box-shadow: 0 0 0 0.22rem var(--primary-muted);
   outline: none;
 }
 
 .rpg-form .form-control::placeholder {
-  color: #94a3b8;
+  color: var(--bs-tertiary-color);
 }
 
 .rpg-form .input-group-text {
-  background-color: #171d28;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: var(--dnd-gold);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--primary);
 }
 
-/* Botões Temáticos */
+/* Botões Temáticos (com alvo de toque mínimo >= 44px para botões principais) */
 .btn-dnd-gold {
   background: linear-gradient(135deg, #d4af37 0%, #b89025 100%);
   border: 1px solid #ffe17d;
@@ -171,13 +163,17 @@ div.text-muted {
   font-family: var(--dnd-font-title);
   font-weight: 700;
   letter-spacing: 0.05em;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  min-height: 44px;
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--radius-sm);
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
-  transition: all 0.25s ease;
+  transition: transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) ease;
 }
 
-.btn-dnd-gold:hover, .btn-dnd-gold:focus {
+.btn-dnd-gold:hover,
+.btn-dnd-gold:focus-visible {
   background: linear-gradient(135deg, #f3ca40 0%, #d4af37 100%);
   color: #05070a;
   transform: translateY(-2px);
@@ -191,13 +187,16 @@ div.text-muted {
   font-family: var(--dnd-font-title);
   font-weight: 700;
   letter-spacing: 0.05em;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  min-height: 44px;
+  padding: 0.65rem 1.35rem;
+  border-radius: var(--radius-sm);
   box-shadow: 0 4px 15px rgba(158, 42, 43, 0.4);
-  transition: all 0.25s ease;
+  transition: transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
 }
 
-.btn-dnd-crimson:hover, .btn-dnd-crimson:focus {
+.btn-dnd-crimson:hover,
+.btn-dnd-crimson:focus-visible {
   background: linear-gradient(135deg, #bd3234 0%, #9e2a2b 100%);
   color: #ffffff;
   transform: translateY(-2px);
@@ -206,75 +205,216 @@ div.text-muted {
 
 .btn-dnd-outline {
   background: transparent;
-  border: 1px solid var(--dnd-gold);
-  color: var(--dnd-gold);
+  border: 1px solid var(--primary);
+  color: var(--primary);
   font-family: var(--dnd-font-title);
   font-weight: 600;
-  transition: all 0.2s ease;
+  min-height: 40px;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) ease, color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease, transform var(--duration-fast) var(--ease-out);
 }
 
 .btn-dnd-outline:hover {
-  background: rgba(212, 175, 55, 0.15);
-  color: var(--dnd-gold-hover);
-  border-color: var(--dnd-gold-hover);
+  background: var(--primary-muted);
+  color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
-/* Navbar Temática */
+/* Navbar Inteligente */
 .rpg-navbar {
-  background: rgba(14, 18, 26, 0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--dnd-border-gold);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  background: rgba(12, 15, 23, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  transition: padding var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+}
+
+.rpg-navbar.scrolled {
+  background: rgba(12, 15, 23, 0.96);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.65);
 }
 
 .rpg-brand {
   font-family: var(--dnd-font-decor);
-  font-size: 1.45rem;
-  color: var(--dnd-gold) !important;
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+  font-size: var(--text-xl);
+  color: var(--primary) !important;
+  text-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
 }
 
-/* Alertas Customizados */
+/* Command Center: Pills, Filtros, Barras de Vida & Bandeja de Dados */
+.rpg-stat-pill {
+  background: var(--surface-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  height: 100%;
+  transition: border-color var(--duration-fast) ease, transform var(--duration-fast) var(--ease-out);
+}
+
+.rpg-stat-pill:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.rpg-filter-chip {
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--dnd-font-title);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.rpg-filter-chip:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.rpg-filter-chip.active {
+  background: var(--primary-muted);
+  border-color: var(--primary);
+  color: var(--primary-hover);
+  box-shadow: 0 0 14px rgba(212, 175, 55, 0.2);
+}
+
+.rpg-hp-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(158, 42, 43, 0.25);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 0.45rem;
+}
+
+.rpg-hp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #9e2a2b 0%, #ef4444 100%);
+  border-radius: 999px;
+  transition: width 0.5s var(--ease-out);
+}
+
+.rpg-dice-roller-tray {
+  background: linear-gradient(135deg, rgba(20, 25, 36, 0.95) 0%, rgba(28, 35, 50, 0.95) 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), var(--dnd-glow-gold);
+}
+
+.rpg-dice-roller-tray.crit-success {
+  border-color: #f3ca40;
+  box-shadow: 0 0 24px rgba(243, 202, 64, 0.35);
+}
+
+.rpg-dice-roller-tray.crit-fail {
+  border-color: #ef4444;
+  box-shadow: 0 0 24px rgba(239, 68, 68, 0.35);
+}
+
+.rpg-service-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: var(--text-xs);
+  font-family: monospace;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.rpg-skill-btn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.6rem;
+  min-height: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background var(--duration-fast) ease, border-color var(--duration-fast) ease,
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.rpg-skill-btn:hover {
+  background: var(--primary-muted);
+  border-color: var(--border);
+  transform: translateX(2px);
+}
+
+/* Skeleton Loader */
+.rpg-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-elevated);
+  border-radius: var(--radius-sm);
+}
+
+.rpg-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.12),
+    transparent
+  );
+  animation: rpgShimmer 1.5s infinite;
+}
+
+@keyframes rpgShimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Alertas & Dividers */
 .rpg-alert-danger {
   background-color: rgba(158, 42, 43, 0.2);
-  border: 1px solid #9e2a2b;
+  border: 1px solid var(--crimson);
   color: #ff9e9e;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 }
 
 .rpg-alert-success {
   background-color: rgba(46, 139, 87, 0.2);
-  border: 1px solid #2e8b57;
+  border: 1px solid var(--success);
   color: #98fb98;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 }
 
-.rpg-badge-token {
-  background-color: rgba(212, 175, 55, 0.15);
-  border: 1px solid var(--dnd-gold);
-  color: var(--dnd-gold);
-  font-family: monospace;
-  font-size: 0.8rem;
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  word-break: break-all;
-}
-
-/* Ornamentos e separadores */
 .dnd-divider {
   display: flex;
   align-items: center;
   text-align: center;
   margin: 1.5rem 0;
-  color: var(--dnd-gold);
-  font-size: 0.85rem;
+  color: var(--primary);
+  font-size: var(--text-sm);
 }
 
 .dnd-divider::before,
 .dnd-divider::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  border-bottom: 1px solid var(--border);
 }
 
 .dnd-divider:not(:empty)::before {
@@ -285,7 +425,6 @@ div.text-muted {
   margin-left: 0.75rem;
 }
 
-/* Animação suave para troca de telas */
 .fade-in {
   animation: fadeIn 0.35s ease-in-out;
 }
@@ -302,102 +441,62 @@ div.text-muted {
 }
 
 /* ==========================================================================
-   TEMA CLARO (V2: Pergaminho / Daylight Adventure)
+   AJUSTES ESPECÍFICOS DO MODO CLARO (Pergaminho / Daylight Adventure)
    ========================================================================== */
-[data-theme="light"] {
-  --dnd-bg-main: #f8f6f0;
-  --dnd-bg-surface: #ffffff;
-  --dnd-bg-card: rgba(255, 255, 255, 0.94);
-  --dnd-bg-input: #ffffff;
-  --dnd-gold: #946917;
-  --dnd-gold-hover: #b8860b;
-  --dnd-gold-muted: rgba(148, 105, 23, 0.15);
-  --dnd-crimson: #a62325;
-  --dnd-crimson-hover: #83181a;
-  --dnd-arcane: #0c6a8f;
-  --dnd-text-main: #1e293b;
-  --dnd-text-muted: #475569;
-  --dnd-text-secondary: #334155;
-  --dnd-border-gold: rgba(148, 105, 23, 0.35);
-  --dnd-glow-gold: 0 4px 18px rgba(148, 105, 23, 0.15);
-
-  --bs-body-color: #1e293b;
-  --bs-body-color-rgb: 30, 41, 59;
-  --bs-secondary-color: #475569;
-  --bs-secondary-color-rgb: 71, 85, 105;
-  --bs-tertiary-color: #64748b;
-  --bs-tertiary-color-rgb: 100, 116, 139;
-}
-
 [data-theme="light"] body {
-  background-color: var(--dnd-bg-main);
-  background-image: 
+  background-color: var(--bg);
+  background-image:
     radial-gradient(circle at 15% 20%, rgba(166, 35, 37, 0.05) 0%, transparent 40%),
     radial-gradient(circle at 85% 80%, rgba(12, 106, 143, 0.05) 0%, transparent 45%),
     radial-gradient(circle at 50% 50%, rgba(148, 105, 23, 0.04) 0%, transparent 60%);
-  color: var(--dnd-text-main);
-}
-
-[data-theme="light"] .text-muted,
-[data-theme="light"] .text-secondary,
-[data-theme="light"] small.text-muted,
-[data-theme="light"] p.text-muted,
-[data-theme="light"] span.text-muted,
-[data-theme="light"] div.text-muted {
-  color: #475569 !important;
 }
 
 [data-theme="light"] .rpg-navbar {
-  background: rgba(255, 255, 255, 0.94);
-  border-bottom: 1px solid var(--dnd-border-gold);
+  background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
-[data-theme="light"] .rpg-card {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07), var(--dnd-glow-gold);
+[data-theme="light"] .rpg-navbar.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-[data-theme="light"] .rpg-card-header {
-  background: linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, rgba(248, 246, 240, 0.9) 100%);
+[data-theme="light"] .rpg-dice-roller-tray {
+  background: linear-gradient(135deg, #fbf8f1 0%, #f1ede2 100%);
 }
 
-[data-theme="light"] .rpg-form .form-control {
-  background-color: #ffffff;
-  border: 1px solid rgba(148, 105, 23, 0.35);
-  color: #0f172a;
-}
-
-[data-theme="light"] .rpg-form .form-control:focus {
-  background-color: #ffffff;
-  border-color: var(--dnd-gold);
-  color: #0f172a;
-  box-shadow: 0 0 0 0.25rem rgba(148, 105, 23, 0.2);
-}
-
-[data-theme="light"] .rpg-form .input-group-text {
-  background-color: #f1ede2;
-  border: 1px solid rgba(148, 105, 23, 0.35);
-  color: var(--dnd-gold);
+[data-theme="light"] .bg-dark {
+  background-color: #ede8dc !important;
+  color: var(--text) !important;
 }
 
 [data-theme="light"] .badge.bg-dark {
   background-color: #e8e2d3 !important;
   color: #4a3809 !important;
-  border: 1px solid rgba(148, 105, 23, 0.45) !important;
 }
 
-[data-theme="light"] .bg-dark {
-  background-color: #ede8dc !important;
-  color: #1e293b !important;
+[data-theme="light"] .rpg-alert-danger {
+  background-color: rgba(166, 35, 37, 0.1);
+  color: #83181a;
 }
 
-[data-theme="light"] .btn-dnd-outline {
-  border-color: var(--dnd-gold);
-  color: var(--dnd-gold);
+[data-theme="light"] .rpg-alert-success {
+  background-color: rgba(46, 139, 87, 0.12);
+  color: #166534;
 }
 
-[data-theme="light"] .btn-dnd-outline:hover {
-  background: rgba(148, 105, 23, 0.12);
-  color: var(--dnd-gold-hover);
+@media (prefers-reduced-motion: reduce) {
+  .rpg-card,
+  .btn-dnd-gold,
+  .btn-dnd-crimson,
+  .rpg-stat-pill,
+  .rpg-filter-chip,
+  .rpg-hp-fill,
+  .fade-in {
+    transition: none !important;
+    animation: none !important;
+  }
+  .rpg-skeleton::after {
+    animation: none !important;
+  }
 }
-
