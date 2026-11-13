@@ -27,7 +27,7 @@ flowchart LR
 
 ## Material de Apoio e Demonstração
 
-- **Apresentação em Slides (HTML):** [`Kubernetes na prática.html`](./Kubernetes%20na%20pr%C3%A1tica.html) — Simulação interativa de slides usada em aula explicando a evolução do projeto desde a arquitetura inicial até a implementação no Kubernetes. Abra o arquivo diretamente no navegador para visualizar.
+- **Apresentação em Slides (HTML):** [`Kubernetes na prática.html`](https://htmlpreview.github.io/?https://github.com/PseravaT/dnd-hub-k8s-gitops/blob/main/Kubernetes%20na%20pr%C3%A1tica.html) — Simulação interativa de slides usada em aula explicando a evolução do projeto desde a arquitetura inicial até a implementação no Kubernetes. Abra o arquivo diretamente no navegador para visualizar.
 - **Demonstração em Vídeo (YouTube):** [RollingUpdate e Rollback na prática](https://youtu.be/dflSJ6n8yJg) — Vídeo demonstrando o funcionamento de atualização contínua (`RollingUpdate`) e reversão de versão (`Rollback`) no cluster Kubernetes.
 
 ---
