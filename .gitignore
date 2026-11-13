@@ -1,0 +1,33 @@
+# Segredos e variáveis de ambiente (nunca subir para o Git)
+.env
+.env.*
+!.env.example
+!.env.exemple
+*secret*.yaml
+*secret*.yml
+
+# Binários e executáveis locais
+*.exe
+kind.exe
+
+# Dependências e builds
+node_modules/
+dist/
+target/
+build/
+
+# IDEs e Sistema Operacional
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+*.log
+
+# Postman local
+.postman/
+
+# Configurações de agentes de IA e documentação local
+.agents/
+PRD.md
+

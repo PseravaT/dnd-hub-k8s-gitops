@@ -1,0 +1,74 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: dnd-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME:-dndmanager}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD no .env}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dnd-net
+
+  apidados:
+    build:
+      context: ./APIdados
+      dockerfile: Dockerfile
+    container_name: dnd-apidados
+    restart: always
+    ports:
+      - "8081:8081"
+    networks:
+      dnd-net:
+        aliases:
+          - apidados-service
+
+  dndmanager:
+    build:
+      context: ./dndmanager
+      dockerfile: Dockerfile
+    container_name: dnd-manager
+    restart: always
+    depends_on:
+      - postgres
+      - apidados
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-dndmanager}
+      DB_USERNAME: ${DB_USERNAME:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD no .env}
+      JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET no .env}
+      JWT_EXPIRATION: "${JWT_EXPIRATION:-24}"
+      APIDADO_URL: http://apidados-service:8081
+    networks:
+      dnd-net:
+        aliases:
+          - dndmanager-service
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: dnd-frontend
+    restart: always
+    depends_on:
+      - dndmanager
+      - apidados
+    ports:
+      - "3000:80"
+    networks:
+      - dnd-net
+
+volumes:
+  pgdata:
+
+networks:
+  dnd-net:
+    driver: bridge
+
