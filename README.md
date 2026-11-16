@@ -169,7 +169,7 @@ Comportamentos configurados nas três `Applications`:
    ```bash
    cp .env.example .env
    ```
-2. Suba todos os serviços (inclui um container PostgreSQL pronto):
+2. Suba os três serviços da aplicação (conectando ao PostgreSQL local na porta 5432):
    ```bash
    docker compose up -d --build
    ```
